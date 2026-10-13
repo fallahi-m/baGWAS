@@ -1,8 +1,10 @@
 # baGWAS
-An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes
-baGWAS is an R package for inter-breed genome-wide association analysis using individual-level genotype data and breed-average phenotypes through two complementary workflows:
-- **`genoGWAS`** — breed-level genotype data analysis using GEMMA linear mixed models..
-- **`freqGWAS`** — breed-level allele frequency analysis using group-level allele-frequency matrices, an IBS-derived breed relationship matrix, and EMMREML.
+### An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes
+
+**baGWAS** is an R package for inter-breed genome-wide association analysis using individual-level genotype data and breed-average phenotypes through two complementary workflows:
+
+- **`genoGWAS`** — breed-level genotype data-based GWAS using GEMMA linear mixed models.
+- **`freqGWAS`** — breed-level allele frequency-based GWAS using group-level allele-frequency matrices, an IBS-derived breed relationship matrix, and EMMREML.
 
 The package provides a single main entry point, `baGWAS()`, and returns a standardized GWAS result table together with reproducible output files, diagnostic plots, and a run log.
 
