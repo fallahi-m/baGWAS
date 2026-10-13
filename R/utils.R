@@ -169,7 +169,7 @@ baGWAS_check_tools <- function() {
 
 .bg_banner <- function(strategy, organism, trait, output_dir) {
   cat("-------------------------------------------------------------------------\n")
-  cat(" baGWAS v1.0.5 by Mohammad.Fallahi, Dani.Fayazi-Kia and team (C) 2026\n")
+  cat(" baGWAS v1.0.0 by Mohammad.Fallahi and Dani.Fayazi-Kia 2026\n")
   cat("-------------------------------------------------------------------------\n")
   cat("Strategy   :", strategy, "\n")
   cat("Organism   :", organism, "\n")
