@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use baGWAS in a publication, please cite the software and the underlying methods."
-title: "baGWAS: Genome-Wide Association Analysis with Genotype- and Frequency-Based Strategies"
-version: "1.0.5"
+title: "baGWAS: An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes"
+version: "1.0.0"
 date-released: "2026-10-03"
 type: software
 license: MIT
