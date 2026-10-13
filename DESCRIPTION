@@ -7,10 +7,11 @@ Authors@R: c(
            role = c("aut", "cre")),
     person("Dani", "Fayazi-Kia", role = "aut")
     )
-Description: Provides a reproducible workflow for genome-wide association
-    analysis using two strategies: genotype-based GWAS (genoGWAS) with
-    GEMMA linear mixed models and frequency-based GWAS (freqGWAS) using
-    allele-frequency matrices, group-level relationships, and EMMREML.
+Description: Implements inter-breed genome-wide association analysis by
+    integrating individual-level genotype data with breed-average
+    phenotypes. Provides two complementary workflows: breed-level
+    genotype data-based GWAS (genoGWAS) and breed-level allele
+    frequency-based GWAS (freqGWAS).
     The package prepares input files, runs PLINK and GEMMA, performs scans,
     creates Manhattan and Q-Q plots, writes run logs, and returns a
     standardized result data frame.
