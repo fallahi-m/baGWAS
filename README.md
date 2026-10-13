@@ -8,7 +8,7 @@
 
 The package provides a single main entry point, `baGWAS()`, and returns a standardized GWAS result table together with reproducible output files, diagnostic plots, and a run log.
 
-> **Status:** Development release 1.0.5. The current release is intended for Linux/macOS (Unix-like systems) and requires external command-line software for the GWAS workflows.
+> **Status:** Development release 1.0.0. The current release is intended for Linux/macOS (Unix-like systems) and requires external command-line software for the GWAS workflows.
 
 ## Main function
 
