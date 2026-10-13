@@ -2,7 +2,7 @@ Package: baGWAS
 Type: Package
 Title: Genome-Wide Association Analysis with Genotype- and Frequency-Based
     Strategies
-Version: 1.0.5
+Version: 1.0.0
 Authors@R: c(
     person("Mohammad", "Fallahi", email = "mohammad.fallahi@modares.ac.ir",
            role = c("aut", "cre")),
