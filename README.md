@@ -67,7 +67,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
 
-remotes::install_github("https://github.com/MohammadFallahiii/baGWAS/baGWAS")
+remotes::install_github("https://github.com/fallahi-m/baGWAS/baGWAS")
 ```
 
 The package can also be installed from a local source checkout:
