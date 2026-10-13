@@ -1,7 +1,6 @@
 Package: baGWAS
 Type: Package
-Title: Genome-Wide Association Analysis with Genotype- and Frequency-Based
-    Strategies
+Title: Inter-Breed GWAS with Genotypes and Breed-Average Phenotypes
 Version: 1.0.0
 Authors@R: c(
     person("Mohammad", "Fallahi", email = "mohammad.fallahi@modares.ac.ir",
