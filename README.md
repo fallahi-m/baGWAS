@@ -39,7 +39,7 @@ strategy = "freqGWAS"
 
 baGWAS is designed to run on Ubuntu Linux and requires R packages and external command-line software.
 
-1. Install external software on Ubuntu
+## 1. Install external software on Ubuntu
 
 Open the Ubuntu Terminal and install PLINK 1.9 and GEMMA:
 
