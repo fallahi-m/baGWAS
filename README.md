@@ -37,29 +37,53 @@ strategy = "freqGWAS"
 
 ## Installation
 
-### Install dependencies
+## Dependencies
 
-`baGWAS` imports the following R packages:
+### R packages
+
+The following R packages are required by baGWAS:
 
 - `data.table`
 - `EMMREML`
+- `dplyr`
 - `ggplot2`
 - `ggmanh`
 
-Install the CRAN dependencies:
+The first four packages are available from CRAN. The `ggmanh` package is distributed through Bioconductor.
+
+### Install R dependencies
+
+Install the CRAN packages:
 
 ```r
-install.packages(c("data.table", "EMMREML", "ggplot2"))
+install.packages(
+  c("data.table", "EMMREML", "dplyr", "ggplot2"),
+  repos = "https://cloud.r-project.org"
+)
 ```
 
-`ggmanh` is installed from Bioconductor:
+Install `ggmanh` from Bioconductor:
 
 ```r
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
-  install.packages("BiocManager")
+  install.packages(
+    "BiocManager",
+    repos = "https://cloud.r-project.org"
+  )
 }
-BiocManager::install("ggmanh", ask = FALSE, update = FALSE)
+
+BiocManager::install("ggmanh")
 ```
+
+### External software requirements
+
+baGWAS also requires external command-line tools:
+
+- **PLINK 1.9** — required by the current `freqGWAS` implementation for breed-level allele-frequency and IBS analyses.
+- **PLINK 1.9 or PLINK 2** — supported by the genotype-processing tool detection in `genoGWAS`.
+- **GEMMA** — required for linear mixed-model association analysis in `genoGWAS`.
+
+These external programs must be installed separately and accessible through the system `PATH` or the environment-variable configuration supported by baGWAS.
 
 ### Install baGWAS from GitHub
 
@@ -68,27 +92,14 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
 
-remotes::install_github("https://github.com/fallahi-m/baGWAS/baGWAS")
+remotes::install_github("fallahi-m/baGWAS")
 ```
 
-The package can also be installed from a local source checkout:
+Load the package:
 
-```bash
-R CMD INSTALL .
+```r
+library(baGWAS)
 ```
-
-## External software requirements
-
-baGWAS calls external command-line programs. These programs are not bundled with the R package and must be installed separately.
-
-### 1. PLINK
-
-The genotype-based workflow can use an executable detected as `plink2`, `plink1.9`, or `plink`. The frequency-based workflow prefers a working PLINK 1.x executable because it uses the PLINK 1.x commands `--freq --within` and `--cluster --matrix`.
-
-### 2. GEMMA
-
-`genoGWAS` uses GEMMA to calculate a relationship matrix and perform the linear mixed-model association scan.
-
 ### Check external tools
 
 After installing the external programs, run:
