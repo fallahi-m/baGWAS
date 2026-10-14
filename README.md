@@ -42,11 +42,10 @@ baGWAS is designed to run on Ubuntu Linux and requires R packages and external c
 ## 1. Install external software on Ubuntu
 
 Open the Ubuntu Terminal and install PLINK 1.9 and GEMMA:
-```r
+
 sudo apt update
-```r
 sudo apt install plink1.9 gemma
-```r
+
 
 ### Software requirements by strategy:
 genoGWAS — requires PLINK for genotype-data preparation and GEMMA for linear mixed-model association analysis.
