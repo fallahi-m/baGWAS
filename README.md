@@ -37,9 +37,23 @@ strategy = "freqGWAS"
 
 ## Installation
 
-## Dependencies
+baGWAS is designed to run on Ubuntu Linux and requires R packages and external command-line software.
 
-### R packages
+1. Install external software on Ubuntu
+
+Open the Ubuntu Terminal and install PLINK 1.9 and GEMMA:
+
+sudo apt update
+sudo apt install plink1.9 gemma
+
+### Software requirements by strategy:
+genoGWAS — requires PLINK for genotype-data preparation and GEMMA for linear mixed-model association analysis.
+freqGWAS — requires PLINK 1.9 for breed-level allele-frequency and IBS calculations.
+
+For the current implementation, PLINK 1.9 is the recommended starting point.
+These external programs must be installed separately and accessible through the system `PATH` or the environment-variable configuration supported by baGWAS.
+
+## 2. Install R package dependencies
 
 The following R packages are required by baGWAS:
 
@@ -75,17 +89,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("ggmanh")
 ```
 
-### External software requirements
-
-baGWAS also requires external command-line tools:
-
-- **PLINK 1.9** — required by the current `freqGWAS` implementation for breed-level allele-frequency and IBS analyses.
-- **PLINK 1.9 or PLINK 2** — supported by the genotype-processing tool detection in `genoGWAS`.
-- **GEMMA** — required for linear mixed-model association analysis in `genoGWAS`.
-
-These external programs must be installed separately and accessible through the system `PATH` or the environment-variable configuration supported by baGWAS.
-
-### Install baGWAS from GitHub
+### 3. Install baGWAS from GitHub
 
 ```r
 if (!requireNamespace("remotes", quietly = TRUE)) {
@@ -99,22 +103,6 @@ Load the package:
 
 ```r
 library(baGWAS)
-```
-### Check external tools
-
-After installing the external programs, run:
-
-```r
-library(baGWAS)
-baGWAS_check_tools()
-```
-
-You can override executable discovery with environment variables:
-
-```r
-Sys.setenv(BA_GWAS_PLINK  = "/path/to/plink2")
-Sys.setenv(BA_GWAS_PLINK1 = "/path/to/plink1.9")
-Sys.setenv(BA_GWAS_GEMMA  = "/path/to/gemma")
 ```
 
 ## Quick start
