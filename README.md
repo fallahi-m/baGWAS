@@ -143,7 +143,7 @@ The `covariate` argument may be `NULL`. In that case, the model uses an intercep
 
 ## Input data
 
-### Genotype data
+### 1. Genotype data
 
 `geno` is a PLINK binary dataset prefix. The following files must exist:
 
@@ -161,7 +161,7 @@ geno = "/home/user/data/geno"
 
 A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
 
-### Phenotype data
+### 2. Phenotype data
 
 `pheno` must be a data frame containing:
 
@@ -190,7 +190,7 @@ pheno <- data.frame(
 ```
 
 
-### Covariates
+### 3. Covariates
 `Covariates` must be a data frame containing:
 
 ```text
