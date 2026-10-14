@@ -50,7 +50,7 @@ sudo apt install plink1.9 gemma
 genoGWAS — requires PLINK for genotype-data preparation and GEMMA for linear mixed-model association analysis.
 freqGWAS — requires PLINK 1.9 for breed-level allele-frequency and IBS calculations.
 
-— For the current implementation, PLINK 1.9 is the recommended starting point.
+> For the current implementation, PLINK 1.9 is the recommended starting point.
 — These external programs must be installed separately and accessible through the system `PATH` or the environment-variable configuration supported by baGWAS.
 
 ## 2. Install R package dependencies
