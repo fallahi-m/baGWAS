@@ -245,7 +245,7 @@ For a run with `output_dir = "<output_dir>"`, the package creates:
 CHR   SNP   BP   P
 ```
 
-The returned object is a data frame with the same core result columns and run metadata stored as attributes, including strategy, trait, organism, output directory, genomic inflation statistic (`lambda`), number of analyzed SNPs, and runtime.
+
 
 ## Diagnostic plots
 
@@ -254,7 +254,7 @@ Each successful strategy writes:
 - `manhattan.png` — Manhattan plot of the GWAS p-values.
 - `qqplot.png` — Q-Q plot with confidence band and the genomic inflation statistic (`lambda`).
 
-## Reproducibility and logs
+## log file
 
 baGWAS records the strategy, organism, trait, sample and SNP counts, run timing, and diagnostic information in `baGWAS.log`.
 
