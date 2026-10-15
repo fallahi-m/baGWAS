@@ -185,7 +185,7 @@ pheno <- data.frame(
   IID = c("1", "2", "3"),
   Sex = c(1, 2, 1),
   Breed = c("Breed_A", "Breed_A", "Breed_B"),
-  weight = c(42.1, 45.7, 47.3)
+  weight = c(42.1, 42.1, 47.3)
 )
 ```
 
