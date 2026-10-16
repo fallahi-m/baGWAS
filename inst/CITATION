@@ -1,12 +1,13 @@
-filename <- "CITATION"
-
 bibentry(
   bibtype = "Manual",
   title = "baGWAS: Genome-Wide Association Analysis with Genotype- and Frequency-Based Strategies",
   author = c(
-    person("Mohammad", "Fallahi"),
-    person("Dani", "Fayazi-Kia")
+    person(given = "Mohammad", family = "Fallahi"),
+    person(given = "Dani", family = "Fayazi-Kia")
   ),
-  year = 2026,
-  note = "R package version 1.0.5"
+  year = "2026",
+  note = paste0(
+    "R package, version ",
+    utils::packageVersion("baGWAS")
+  )
 )
