@@ -141,6 +141,89 @@ baGWAS.Res <- baGWAS(
 
 The `covariate` argument may be `NULL`. In that case, the model uses an intercept only.
 
+
+## Choosing a Strategy
+
+baGWAS provides two complementary strategies for genome-wide association analysis using breed-average phenotypes. Both address the same broad question: which genetic loci show variation across breeds that is associated with differences in breed-mean phenotypes, after accounting for population structure? They differ in genotype representation, unit of analysis, and the way genetic relatedness is modelled. Their results may therefore be correlated, but they should not be expected to be identical.
+
+### Conceptual Basis
+
+In this framework, phenotypes are available as breed means rather than as individually measured, matched phenotypes. In `genoGWAS`, the breed-mean phenotype is assigned to each genotyped individual belonging to that breed. Consequently, the phenotype has no within-breed variation by construction. Within-breed genotype differences therefore do not provide direct within-breed genotype–phenotype information. The association signal is driven primarily by differences in genotype or allele frequency between breeds with different mean phenotypes.
+
+In `freqGWAS`, genotypes are summarized as breed-level allele frequencies and analysed alongside the corresponding breed-mean phenotypes. This makes the breed the explicit unit of analysis and aligns the data representation directly with the level at which the phenotype is available.
+
+### At-a-Glance Comparison
+
+| Feature | `genoGWAS` | `freqGWAS` |
+|---|---|---|
+| Genotype representation | Individual-level genotypes | Breed-level allele frequencies |
+| Unit represented in the association data | Individuals, with breed-mean phenotypes repeated within each breed | Breeds/groups, with one phenotype observation per breed/group |
+| Association software/model | GEMMA linear mixed model; likelihood-ratio test in the current workflow | EMMREML mixed-model workflow |
+| Relatedness matrix | Individual-level genomic relationship matrix | Breed/group-level IBS-derived relationship matrix |
+| Covariates | Individual-level covariates, when supported by the workflow | Covariates summarized at the breed/group level |
+| Main source of association signal | Differences in genotype distribution between breeds with different mean phenotypes | Covariation between breed-level allele frequencies and breed-mean phenotypes |
+| Computational considerations | Generally more demanding when the individual-level relationship matrix is large | Generally less demanding when the number of breeds is much smaller than the number of individuals |
+| Main caution | Repeated breed-mean phenotypes can create a mismatch between the nominal individual count and the number of independent phenotypic units | Breed-level allele frequencies can be imprecise when estimated from small samples; this uncertainty may not be fully represented in the model |
+
+*Implementation details, including available covariates, quality-control filters, and test statistics, depend on the package version and analysis settings.*
+
+### Key Differences That Can Affect Results
+
+#### 1. Breed Sample Size and Weighting
+
+In `genoGWAS`, breeds represented by more genotyped individuals can contribute more individual records to model fitting. In `freqGWAS`, each breed/group is represented by a row in the breed-level analysis. However, one row per breed does not, by itself, guarantee equal statistical weight; the effective contribution of each breed depends on the model and its variance assumptions.
+
+#### 2. Repeated Phenotypes and Effective Replication
+
+In `genoGWAS`, individuals from the same breed share an identical assigned phenotype. The number of individuals is therefore not the number of independent phenotypic observations. The number of breeds and their structure are central to the available between-breed information.
+
+A mixed model and relationship matrix may account for some dependence, but they do not automatically guarantee valid statistical calibration when breed-mean phenotypes are repeated across individuals. Test-statistic inflation should be assessed rather than assumed absent.
+
+#### 3. Uncertainty in Allele-Frequency Estimates
+
+In `freqGWAS`, the precision of a breed's allele-frequency estimate depends partly on the number of successfully genotyped individuals in that breed and on genotype quality. Small breed samples can produce noisy estimates. Unless the analysis explicitly models this estimation uncertainty, it may not be fully reflected in standard errors or test statistics.
+
+#### 4. Population Structure
+
+`genoGWAS` models relatedness at the individual level, whereas `freqGWAS` uses a relationship matrix defined among breeds/groups. These matrices describe population structure at different levels and are not interchangeable. Their different parameterizations can change how population structure and potential confounding are controlled.
+
+#### 5. Quality Control
+
+Genotype quality control and variant filtering should be appropriate to the data representation and performed before interpreting associations. Individual-level filtering and breed-level allele-frequency filtering are not necessarily equivalent. Review the actual filters used by the selected workflow and document the thresholds in reports or publications.
+
+#### 6. Computational Cost
+
+When there are many individuals but relatively few breeds, a breed-level relationship matrix can be substantially smaller than an individual-level matrix. In that setting, `freqGWAS` may require fewer computational resources. Actual runtime depends on the number of individuals, breeds, variants, and model settings.
+
+### Decision Guide
+
+| Study Situation | Suggested Approach |
+|---|---|
+| Only breed-level allele frequencies are available | `freqGWAS` |
+| Individual-level genotypes are available and the goal is association with breed-average phenotypes | Consider both strategies, with careful validation of `genoGWAS` calibration |
+| Concern about inflated test statistics from repeated breed-mean phenotypes | Start with `freqGWAS` as the more direct breed-level representation; assess calibration for either method |
+| Many individuals but relatively few breeds, with limited computational resources | `freqGWAS` may be more computationally practical |
+| Individual-level covariates or individual-level genotype QC are essential | Consider `genoGWAS`, provided its statistical assumptions are appropriate and checked |
+| Breed sample sizes are highly unbalanced | Choose based on the intended contribution of breeds and the model's weighting; investigate sensitivity to sample-size imbalance |
+| Some breeds have very small genotype sample sizes | Interpret both approaches cautiously; breed-level allele-frequency estimates may be noisy |
+| Independent assessment of candidate associations is desired | Run both where feasible and compare results, while also evaluating statistical calibration |
+
+### Recommendation
+
+Because the phenotype is defined at the breed level, **`freqGWAS` is the more direct representation of the stated analysis unit**. `genoGWAS` can provide a complementary analysis by retaining individual-level genotype records, but its use with repeated breed-mean phenotypes requires particular attention to model assumptions and test-statistic calibration.
+
+When individual-level genotypes are available, running both strategies can be informative. We recommend evaluating:
+
+- **Genomic inflation and Q–Q plots:** Inspect the distribution of test statistics and possible inflation. A genomic inflation factor (\(\lambda_{GC}\)) is a diagnostic, not proof that a model is valid or invalid.
+- **Agreement across strategies:** Compare the correlation of \(-\log_{10}(P)\) values and inspect whether the same genomic regions show similar patterns.
+- **Overlap of candidate loci:** Report the overlap under a clearly stated significance threshold and multiple-testing procedure.
+- **Robustness:** Investigate whether results change with breed sample-size imbalance, the number of breeds, covariate choices, and population-structure assumptions.
+- **Calibration and error rates:** Where possible, use simulations or other appropriate validation to assess type I error, false-positive rates, and power under realistic population structure.
+
+Signals supported by both strategies may be useful candidates for follow-up, but agreement alone does not establish that an association is statistically valid. Independent replication and biological interpretation remain important.
+
+> **Important note:** `genoGWAS` and `freqGWAS` are not statistically equivalent and should not be expected to return identical *P*-values. Differences can arise from the unit of analysis, breed sample-size balance, allele-frequency estimation, relationship matrices, covariates, and model assumptions. The number of breeds is a key determinant of the independent between-breed phenotypic information available to either strategy.
+
 ## Input data
 
 ### 1. Genotype data
