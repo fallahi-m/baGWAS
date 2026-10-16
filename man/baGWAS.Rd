@@ -3,8 +3,7 @@
 \alias{baGWAS}
 \title{breed-average Genome-Wide Association Analysis}
 \description{
-Performs inter-breed genome-wide association analysis using genetic
-data and breed-average phenotype values. The package implements two
+Performs inter-breed genome-wide association analysis by integrating individual-level genotype data with breed-average phenotypes. The package implements two
 complementary analytical strategies, \code{genoGWAS} and
 \code{freqGWAS}, both of which use breed-average phenotype values
 to investigate genetic associations across breeds.
@@ -13,15 +12,16 @@ The two strategies differ in how genetic variation is represented
 and analyzed:
 
 \enumerate{
-  \item \code{genoGWAS}: Uses individual-level genotype data, with
-  breed-average phenotype values assigned to genotyped individuals
+  \item \code{genoGWAS}: Uses individual-level genotype data and
+  assigns breed-average phenotype values to genotyped individuals
   according to their breed. Association analysis is performed using
   linear mixed models implemented in GEMMA.
 
   \item \code{freqGWAS}: Uses breed-level allele frequencies and
-  breed-average phenotype values, together with a breed-level
-  relationship matrix derived from identity-by-state (IBS)
-  information. Association analysis is performed using EMMREML.
+  corresponding breed-average phenotype values. Genetic relationships
+  among breeds or groups are represented by a relationship matrix
+  derived from identity-by-state (IBS) information, and association
+  analysis is performed using EMMREML.
 }
 }
 \usage{
