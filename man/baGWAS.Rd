@@ -1,7 +1,7 @@
 
 \name{baGWAS}
 \alias{baGWAS}
-\title{Inter-Breed Genome-Wide Association Analysis}
+\title{Breed-Average Genome-Wide Association Analysis}
 \description{
 Performs inter-breed genome-wide association analysis by integrating
 individual-level genotype data with breed-average phenotypes.
