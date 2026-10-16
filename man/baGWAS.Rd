@@ -1,56 +1,141 @@
+
 \name{baGWAS}
 \alias{baGWAS}
-\title{Genome-wide association analysis (genoGWAS or freqGWAS)}
+\title{Inter-Breed Genome-Wide Association Analysis}
+\description{
+Performs inter-breed genome-wide association analysis by integrating
+individual-level genotype data with breed-average phenotypes.
+Two complementary strategies are available: genotype-data-based
+GWAS using GEMMA and allele-frequency-based GWAS using EMMREML.
+The function prepares analysis inputs, runs the selected workflow,
+generates association results and diagnostic plots, and records
+execution information in a log file.
+}
 \usage{
-baGWAS(
-  strategy = c("genoGWAS", "freqGWAS"),
-  organism,
-  pheno,
-  covariate = NULL,
-  trait,
-  geno,
-  output_dir = getwd(),
-  group_col = "FID",
-  threads = NULL
-)
+baGWAS(strategy = "", organism = "", pheno,
+       covariate = NULL, trait = "", geno = "",
+       group_col = "FID", output_dir = ".")
 }
 \arguments{
-\item{strategy}{\code{"genoGWAS"} or \code{"freqGWAS"}.}
+  \item{strategy}{
+  Character string specifying the analysis strategy.
+  Use \code{"genoGWAS"} for breed-level genotype-data-based GWAS,
+  or \code{"freqGWAS"} for breed-level allele-frequency-based GWAS.
+  }
 
-\item{organism}{One of \code{"dog"}, \code{"sheep"}, \code{"cattle"},
-\code{"cow"}, \code{"horse"}, \code{"mouse"}, \code{"rice"}.}
+  \item{organism}{
+  Character string identifying the organism. Supported keywords
+  in the current implementation include \code{"dog"},
+  \code{"sheep"}, \code{"cattle"}, \code{"cow"},
+  \code{"horse"}, \code{"mouse"}, and \code{"rice"}.
+  The selected keyword must be compatible with the PLINK options
+  implemented by the package.
+  }
 
-\item{pheno}{Data frame with columns \code{FID}, \code{IID} and the trait.}
+  \item{pheno}{
+  Data frame containing individual identifiers, group or breed
+  information, and the numeric phenotype to be analyzed.
+  It must contain \code{FID}, \code{IID}, and the column specified
+  by \code{trait}. The grouping information must be consistent
+  with the selected analysis design.
+  }
 
-\item{covariate}{\code{NULL} (intercept-only model) or a data frame with
-\code{FID}, \code{IID} and numeric covariate columns. For \code{freqGWAS} it
-must also contain \code{group_col}.}
+  \item{covariate}{
+  Optional data frame of covariates. Use \code{NULL} for an
+  intercept-only model. When provided, the data must contain
+  identifiers compatible with the phenotype data and the
+  covariate columns required by the selected workflow.
+  }
 
-\item{trait}{Name of the trait column in \code{pheno}.}
+  \item{trait}{
+  Character string giving the name of the numeric phenotype
+  column in \code{pheno}.
+  }
 
-\item{geno}{PLINK binary file prefix (without \code{.bed/.bim/.fam}).}
+  \item{geno}{
+  Character string specifying the PLINK binary genotype dataset
+  prefix. The corresponding \code{.bed}, \code{.bim}, and
+  \code{.fam} files must exist. A path ending in one of these
+  extensions may be normalized to the dataset prefix.
+  }
 
-\item{output_dir}{Directory in which the \code{Result} folder is created.}
+  \item{group_col}{
+  Character string naming the column used to define groups,
+  breeds, or populations for the frequency-based workflow.
+  The default shown here is \code{"FID"}.
+  }
 
-\item{group_col}{Grouping column (breed/population) for \code{freqGWAS}.}
+  \item{output_dir}{
+  Character string specifying the directory in which result
+  files are written. The default shown here is the current
+  working directory.
+  }
+}
+\details{
+The \code{genoGWAS} strategy uses individual-level genotype data
+prepared with PLINK and performs linear mixed-model association
+analysis with GEMMA.
 
-\item{threads}{Number of threads; default is all cores minus one.}
+The \code{freqGWAS} strategy uses breed- or group-level allele
+frequencies, an identity-by-state (IBS)-derived group relationship
+matrix, and EMMREML for association analysis.
+
+These strategies represent different analytical workflows and
+their results should not be treated as interchangeable.
+
+External command-line programs must be installed separately and
+available through the system PATH or the environment-variable
+configuration supported by the package. The required tools depend
+on the selected strategy.
+
+Users should evaluate genotype quality control, phenotype
+definition, sample structure, group definitions, covariates,
+model assumptions, and multiple-testing procedures before
+interpreting association results.
 }
 \value{
-A data frame with columns \code{CHR}, \code{SNP}, \code{BP}, \code{P}, with
-attributes \code{strategy}, \code{trait}, \code{organism}, \code{output_dir},
-\code{lambda}, \code{n_snps}, \code{runtime_min}. Files are written to
-\code{<output_dir>/Result/<strategy>/}.
+Returns a standardized GWAS result data frame. The documented
+result columns include \code{CHR}, \code{SNP}, \code{BP}, and
+\code{P}. The function also writes result files, diagnostic plots,
+and a run log to the output directory, according to the selected
+strategy.
 }
-\description{
-Runs a GWAS using either a genotype-based strategy (PLINK + GEMMA linear
-mixed model) or a frequency-based strategy (group allele frequencies with
-EMMREML).
+\section{Output files}{
+The analysis produces a result file named \code{baGWAS.Res},
+a Manhattan plot named \code{manhattan.png}, a Q-Q plot named
+\code{qqplot.png}, and a log file named \code{baGWAS.log}.
+The frequency-based workflow may also produce
+\code{SNPs_with_errors.txt} when SNP models fail.
+Actual output locations depend on the package implementation
+and the selected output directory.
 }
 \examples{
 \dontrun{
-GWAS.res <- baGWAS(strategy = "genoGWAS", organism = "dog",
-                   pheno = pheno, covariate = cov, trait = "Size",
-                   geno = "~/Desktop/tst/geno")
+# Genotype-data-based GWAS
+result <- baGWAS(
+  strategy = "genoGWAS",
+  organism = "dog",
+  pheno = pheno,
+  covariate = NULL,
+  trait = "weight",
+  geno = "/data/geno"
+)
+
+# Allele-frequency-based GWAS
+result <- baGWAS(
+  strategy = "freqGWAS",
+  organism = "dog",
+  pheno = pheno,
+  covariate = NULL,
+  trait = "weight",
+  geno = "/data/geno",
+  group_col = "FID"
+)
 }
 }
+\seealso{
+\code{\link{citation}},
+\url{https://github.com/fallahi-m/baGWAS}
+}
+\keyword{models}
+\keyword{documentation}
