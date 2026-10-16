@@ -2,11 +2,6 @@ Package: baGWAS
 Type: Package
 Title: Inter-Breed GWAS with Genotypes and Breed-Average Phenotypes
 Version: 1.0.0
-Authors@R: c(
-    person("Mohammad", "Fallahi", email = "mohammad.fallahi@modares.ac.ir",
-           role = c("aut", "cre")),
-    person("Dani", "Fayazi-Kia", role = "aut")
-    )
 Author: Mohammad Fallahi [aut, cre], Dani Fayazi-Kia [aut]
 Maintainer: Mohammad Fallahi <mohammad.fallahi@modares.ac.ir>
 Description: Implements inter-breed genome-wide association analysis by
