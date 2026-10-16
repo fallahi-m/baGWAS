@@ -1,6 +1,7 @@
 bibentry(
   bibtype = "Manual",
-  title = "baGWAS: Genome-Wide Association Analysis with Genotype- and Frequency-Based Strategies",
+  title = "baGWAS: An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes
+",
   author = c(
     person(given = "Mohammad", family = "Fallahi"),
     person(given = "Dani", family = "Fayazi-Kia")
