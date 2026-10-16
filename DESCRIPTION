@@ -7,6 +7,8 @@ Authors@R: c(
            role = c("aut", "cre")),
     person("Dani", "Fayazi-Kia", role = "aut")
     )
+Author: Mohammad Fallahi [aut, cre], Dani Fayazi-Kia [aut]
+Maintainer: Mohammad Fallahi <mohammad.fallahi@modares.ac.ir>
 Description: Implements inter-breed genome-wide association analysis by
     integrating individual-level genotype data with breed-average
     phenotypes. Provides two complementary workflows: breed-level
