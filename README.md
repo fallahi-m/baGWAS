@@ -1,4 +1,4 @@
-# baGWAS
+# 2baGWAS
 ### An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes
 
 **baGWAS** is an R package for inter-breed genome-wide association analysis using individual-level genotype data and breed-average phenotypes through two complementary workflows:
