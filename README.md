@@ -1,4 +1,4 @@
-# 2baGWAS
+# baGWAS
 ### An Inter-Breed GWAS Framework Integrating Individual-Level Genotype and Breed-Average Phenotypes
 
 **baGWAS** is an R package for inter-breed genome-wide association analysis using individual-level genotype data and breed-average phenotypes through two complementary workflows:
@@ -248,7 +248,7 @@ For a run with `output_dir = "<output_dir>"`, the package creates:
 
 - **baGWAS.log** — records the analysis strategy, organism, trait, sample and SNP counts, runtime, and diagnostic information.
 
-- The result table is also returned by baGWAS() and assigned to GWAS.res in the examples above. By default, output_dir is the current working directory, and the package creates the Result subdirectory there. Intermediate files are removed after execution.
+ The result table is also returned by baGWAS() and assigned to GWAS.res in the examples above. By default, output_dir is the current working directory, and the package creates the Result subdirectory there. Intermediate files are removed after execution.
 
 ## Statistical Considerations and Interpretation
 
