@@ -142,9 +142,6 @@ baGWAS.Res <- baGWAS(
 The `covariate` argument may be `NULL`. In that case, the model uses an intercept only.
 
 
-
-## Choosing a Strategy
-
 ## Choosing a Strategy
 
 `baGWAS` is designed for inter-breed genome-wide association studies when collecting individual-level genotype and phenotype data for every animal is impractical. It integrates publicly available genotype data from purebred animals with breed-average phenotypes obtained from breed standards, published studies, or other reliable sources.
