@@ -255,7 +255,7 @@ For a run with `output_dir = "<output_dir>"`, the package creates:
 - **Population structure:** Shared ancestry and genetic similarities among breeds can produce associations between markers and breed-average phenotypes. Relationship matrices help account for genetic structure, but residual confounding may remain.
 
 - **Allele-frequency precision:** Estimates in freqGWAS depend on sample size, genotype quality, allele frequency, and relatedness among sampled animals. Sampling uncertainty may not be explicitly incorporated into the association model.
-- 
+
 - **Model diagnostics:** Interpret P-values alongside Manhattan and Q–Q plots, genomic inflation factors, and sensitivity analyses. Where feasible, simulations under an appropriate null model can help assess calibration.
 
 > **Interpretation note:** `baGWAS` targets genetic associations with phenotypic differences at the **breed level**, rather than within breeds. Identified markers are not direct evidence of within-breed genotype–phenotype effects or causality. Associations may also reflect population history, shared ancestry, or other breed-associated factors. Findings should be interpreted in light of the study design, phenotype reliability, genotype quality, and adequacy of the statistical model..
